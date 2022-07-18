@@ -1,0 +1,27 @@
+{
+  "name": "tauri-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.0.2",
+    "element-plus": "^2.2.5",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@iconify-json/ep": "^1.1.6",
+    "@tauri-apps/cli": "^1.0.4",
+    "@vitejs/plugin-vue": "^3.0.0",
+    "unplugin-auto-import": "^0.8.8",
+    "unplugin-icons": "^0.14.4",
+    "unplugin-vue-components": "^0.19.6",
+    "vite": "^3.0.0",
+    "vite-plugin-inspect": "^0.6.0"
+  }
+}
