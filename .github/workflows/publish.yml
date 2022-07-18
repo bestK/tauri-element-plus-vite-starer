@@ -1,7 +1,10 @@
 name: 'Release CLI'
 
-on: pull_request
-
+on:
+  push:
+    branches:
+      - release
+  workflow_dispatch:
 jobs:
   create-release:
     runs-on: ubuntu-latest
