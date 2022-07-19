@@ -3,37 +3,33 @@
     windows_subsystem = "windows"
 )]
 
-use app::http_util::{req_get, req_post_json};
-use whoami;
-
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}!", name)
-}
-
-/// 获取当前电脑用户名
-#[tauri::command]
-fn get_realname() -> String {
-    whoami::realname()
-}
-
 #[tauri::command]
 fn http_get(request_url: &str) -> Result<String, String> {
-    req_get(request_url)
+    app::request::get(request_url)
 }
 
 #[tauri::command]
 fn http_post(request_url: &str, params: &str) -> Result<String, String> {
-    req_post_json(request_url, params)
+    app::request::post_json(request_url, params)
+}
+
+#[tauri::command]
+fn read_hosts(os_type: &str) -> String {
+    app::read_hosts_file(os_type)
+}
+
+#[tauri::command]
+fn write_hosts(os_type: &str, hosts: &str) {
+    app::write_hosts_file(os_type, hosts)
 }
 
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
-            greet,
-            get_realname,
             http_get,
-            http_post
+            http_post,
+            read_hosts,
+            write_hosts
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

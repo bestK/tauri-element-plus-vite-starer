@@ -1,40 +1,35 @@
-extern crate reqwest;
+pub mod request;
+use std::{
+    collections::HashMap,
+    fs::File,
+    io::{Read, Write, Error},
+};
 
-pub mod http_util {
+///
+/// # read_hosts_file
+///
+/// 获取 hosts 文件内容
+///  
+pub fn read_hosts_file(os_type: &str) -> String {
+    let mut file = File::open(path(&os_type)).unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+    return contents;
+}
 
-    use mime::APPLICATION_JSON;
-    use reqwest::header::{CONTENT_TYPE, USER_AGENT};
+pub fn write_hosts_file(os_type: &str, hosts: &str) {
+    let mut file = File::options().write(true).open(path(&os_type)).unwrap();
+    file.write_all(hosts.as_bytes());
+    file.sync_all();
+    
+}
 
-    const UA: &'static str =
-        "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0";
-
-    pub fn req_get(request_url: &str) -> Result<String, String> {
-        let client = reqwest::blocking::Client::new();
-
-        let res = client
-            .get(request_url)
-            .header(USER_AGENT, UA)
-            .send()
-            .unwrap()
-            .text()
-            .unwrap();
-
-        Ok(res)
-    }
-
-    pub fn req_post_json(request_url: &str, params: &str) -> Result<String, String> {
-        let client = reqwest::blocking::Client::new();
-
-        let res = client
-            .post(request_url)
-            .header(USER_AGENT, UA)
-            .header(CONTENT_TYPE, APPLICATION_JSON.to_string())
-            .json(params)
-            .send()
-            .unwrap()
-            .text()
-            .unwrap();
-
-        Ok(res)
-    }
+fn path(os_type: &str) -> String {
+    // osType 'Linux' on Linux, 'Darwin' on macOS, and 'Windows_NT' on Windows.
+    let hosts_file_path: HashMap<&str, &str> = HashMap::from([
+        ("Linux", "/etc/hosts"),
+        ("Darwin", "/private/etc/hosts"),
+        ("Windows_NT", "C:\\Windows\\System32\\drivers\\etc\\hosts"),
+    ]);
+    return hosts_file_path.get(&os_type).unwrap().to_string();
 }
