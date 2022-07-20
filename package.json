@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^1.0.2",
+    "codemirror-editor-vue3": "^2.1.7",
     "element-plus": "^2.2.5",
     "vue": "^3.2.37"
   },

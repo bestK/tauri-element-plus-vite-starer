@@ -9,10 +9,12 @@ const i = ref(0)
 let name = $ref('')
 let version = $ref('')
 let tauriVersion = $ref('')
+
 ;(async () => {
   name = await app.getName()
   version = await app.getVersion()
   tauriVersion = await app.getTauriVersion()
+
 })()
 </script>
 
