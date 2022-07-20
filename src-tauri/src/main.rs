@@ -15,12 +15,22 @@ fn http_post(request_url: &str, params: &str) -> Result<String, String> {
 
 #[tauri::command]
 fn read_hosts(os_type: &str) -> String {
-    app::read_hosts_file(os_type)
+    app::file::read_hosts_file(os_type)
 }
 
 #[tauri::command]
 fn write_hosts(os_type: &str, hosts: &str) {
-    app::write_hosts_file(os_type, hosts)
+    let _ = app::file::write_hosts_file(os_type, hosts);
+}
+/// TODO fix serde::de::Deserialize<'_>` is not satisfied when `is_elevated` type is bool
+#[tauri::command]
+fn backup_hosts(os_type: &str, is_elevated: &str) {
+    let _ = app::file::backup_hosts_file(os_type, is_elevated);
+}
+
+#[tauri::command]
+fn is_elevated() -> bool {
+    app::windows::is_app_elevated()
 }
 
 fn main() {
@@ -29,7 +39,9 @@ fn main() {
             http_get,
             http_post,
             read_hosts,
-            write_hosts
+            write_hosts,
+            backup_hosts,
+            is_elevated
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -1,0 +1,49 @@
+﻿127.0.0.1 cms.dev.1-dian.cn
+#运输系统 192.168.0.127  127.0.0.1
+127.0.0.1 tms.dev.1-dian.cn
+## 注册中心-测试环境  120.78.254.245   120.78.7.98 
+120.78.7.98  reg.test.1-dian.cn
+## 用户中心 192.168.1.39
+127.0.0.1 upms.dev.1-dian.cn
+## 授权系统
+192.168.1.39 sso.dev.1-dian.cn
+## 注册中心
+192.168.1.39 reg.dev.1-dian.cn
+## 网关
+127.0.0.1 gateway.dev.1-dian.cn
+## 接口项目
+127.0.0.1 api.dev.1-dian.cn
+## 仓储系统
+127.0.0.1 wms.dev.1-dian.cn
+## redis
+192.168.1.39 redis.dev.1-dian.cn
+## mysql
+192.168.1.39 mysql.dev.1-dian.cn
+## rabbitmq
+192.168.1.39 rabbitmq.dev.1-dian.cn
+
+127.0.0.1 ctms.dev.1-dian.cn
+127.0.0.1 wmsfba.dev.1-dian.cn
+127.0.0.1 oms.dev.1-dian.cn
+127.0.0.1	registry config monitor rabbitmq auth-service
+127.0.0.1 server.smart-sso.com
+127.0.0.1 demo.smart-sso.com
+127.0.0.1 eureka7002.com
+127.0.0.1 eureka7001.com
+127.0.0.1 jydtest.com
+127.0.0.1 2miners.com
+127.0.0.1 ethermine.org
+ECHO is off.=172.67.190.54
+# Added by Docker Desktop
+192.168.0.165 host.docker.internal
+192.168.0.165 gateway.docker.internal
+# To allow the same kube context to work on the host and the container:
+127.0.0.1 kubernetes.docker.internal
+# End of section
+27.148.138.181 storeedgefd.dsx.mp.microsoft.com #UHE_
+58.254.150.43 assets1.xboxlive.cn #UHE_
+58.254.150.43 assets2.xboxlive.cn #UHE_
+58.254.150.43 dl.delivery.mp.microsoft.com #UHE_
+58.254.150.43 tlu.dl.delivery.mp.microsoft.com #UHE_
+l.delivery.mp.microsoft.com #UHE_
+

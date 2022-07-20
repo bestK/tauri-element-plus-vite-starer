@@ -1,7 +1,7 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
 import Editor from './components/Editor.vue'
 import { invoke } from '@tauri-apps/api'
 import { type } from '@tauri-apps/api/os';
@@ -13,9 +13,14 @@ import { ref } from 'vue'
 const textarea = ref('')
 
 const onSave = async () => {
-  // let hosts = await invoke('read_hosts', { "osType": osType });
-  const osType = await type();
-  console.log(textarea.value)
+  const osType = await type()
+  const isElevated = await invoke('is_elevated')
+  if (!isElevated) {
+    ElMessage.warning(`非管理员模式运行，备份文件将保存在当前运行目录`)
+  } 
+
+  await invoke('backup_hosts', { 'osType': osType, 'isElevated': String(isElevated) })
+
   invoke('write_hosts', { 'osType': osType, 'hosts': textarea.value }).then(_ => {
     ElMessage({
       message: '修改成功.',
@@ -23,17 +28,9 @@ const onSave = async () => {
     })
   }).catch(e => {
     ElMessage.error(`修改失败: ${e.message}`)
-  });
+  })
 
 }
-
-
-onMounted(() => {
-  console.log('onMounted')
-  loadHosts()
-})
-
-
 // 加载 hosts
 const loadHosts = async () => {
   const osType = await type();
@@ -42,6 +39,10 @@ const loadHosts = async () => {
   textarea.value = hosts
 }
 
+onMounted(() => {
+  console.log('onMounted')
+  loadHosts()
+})
 
 </script>
 
